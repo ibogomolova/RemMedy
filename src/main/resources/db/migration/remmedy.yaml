@@ -1,0 +1,118 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: bogomolova
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  name: email
+                  type: VARCHAR(255)
+              - column:
+                  name: password
+                  type: VARCHAR(255)
+
+  - changeSet:
+      id: 2
+      author: bogomolova
+      changes:
+        - createTable:
+            tableName: medicines
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  name: added_at
+                  type: DATE
+              - column:
+                  name: expiration_date
+                  type: DATE
+              - column:
+                  name: barcode
+                  type: VARCHAR(255)
+              - column:
+                  name: front_image_url
+                  type: VARCHAR(512)
+              - column:
+                  name: user_id
+                  type: UUID
+        - addForeignKeyConstraint:
+            baseTableName: medicines
+            baseColumnNames: user_id
+            referencedTableName: users
+            referencedColumnNames: id
+            constraintName: fk_medicine_user
+
+  - changeSet:
+      id: 3
+      author: bogomolova
+      changes:
+        - createTable:
+            tableName: reminders
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: notify_at
+                  type: TIMESTAMP
+              - column:
+                  name: sent
+                  type: BOOLEAN
+              - column:
+                  name: medicine_id
+                  type: UUID
+        - addForeignKeyConstraint:
+            baseTableName: reminders
+            baseColumnNames: medicine_id
+            referencedTableName: medicines
+            referencedColumnNames: id
+            constraintName: fk_reminder_medicine
+
+  - changeSet:
+      id: 4
+      author: bogomolova
+      changes:
+        - createTable:
+            tableName: notification_settings
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: notify_by_email
+                  type: BOOLEAN
+              - column:
+                  name: notify_by_push
+                  type: BOOLEAN
+              - column:
+                  name: days_before
+                  type: INT
+              - column:
+                  name: user_id
+                  type: UUID
+        - addForeignKeyConstraint:
+            baseTableName: notification_settings
+            baseColumnNames: user_id
+            referencedTableName: users
+            referencedColumnNames: id
+            constraintName: fk_notification_user
