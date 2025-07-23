@@ -5,8 +5,8 @@ import lombok.Data;
 import java.util.UUID;
 
 @Data
-public class UserDto {
-    private UUID id;
-    private String name;
+public class JwtResponseDto {
+    private String token;
+    private UUID userId;
     private String email;
 }
