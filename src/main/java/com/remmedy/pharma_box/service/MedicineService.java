@@ -8,8 +8,12 @@ import java.util.UUID;
 
 public interface MedicineService {
     MedicineDto create(CreateMedicineDto dto);
+
     List<MedicineDto> getAllByUser(UUID userId);
+
     MedicineDto getById(UUID id);
+
     MedicineDto update(UUID id, MedicineDto dto);
+
     void delete(UUID id);
 }

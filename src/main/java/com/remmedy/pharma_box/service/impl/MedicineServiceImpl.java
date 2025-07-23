@@ -33,7 +33,8 @@ public class MedicineServiceImpl implements MedicineService {
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
         medicine.setUser(user);
 
-        return mapper.toDto(medicineRepository.save(medicine));
+        Medicine saved = medicineRepository.save(medicine);
+        return mapper.toDto(saved);
     }
 
     @Override
@@ -60,7 +61,8 @@ public class MedicineServiceImpl implements MedicineService {
         medicine.setBarcode(dto.getBarcode());
         medicine.setFrontImageUrl(dto.getFrontImageUrl());
 
-        return mapper.toDto(medicineRepository.save(medicine));
+        Medicine updated = medicineRepository.save(medicine);
+        return mapper.toDto(updated);
     }
 
     @Override
