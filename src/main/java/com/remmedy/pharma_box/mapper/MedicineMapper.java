@@ -8,8 +8,10 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface MedicineMapper {
+
     @Mapping(source = "user.id", target = "userId")
     MedicineDto toDto(Medicine medicine);
+
     @Mapping(source = "userId", target = "user.id")
     Medicine toEntity(CreateMedicineDto dto);
 }

@@ -13,4 +13,5 @@ public class MedicineDto {
     private LocalDate expirationDate;
     private String barcode;
     private String frontImageUrl;
+    private UUID userId;
 }
