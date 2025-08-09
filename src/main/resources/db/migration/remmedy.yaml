@@ -116,3 +116,19 @@ databaseChangeLog:
             referencedTableName: users
             referencedColumnNames: id
             constraintName: fk_notification_user
+  - changeSet:
+      id: 5
+      author: bogomolova
+      changes:
+        - addColumn:
+            tableName: reminders
+            columns:
+              - column:
+                  name: user_id
+                  type: UUID
+        - addForeignKeyConstraint:
+            baseTableName: reminders
+            baseColumnNames: user_id
+            referencedTableName: users
+            referencedColumnNames: id
+            constraintName: fk_reminder_user

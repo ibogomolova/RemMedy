@@ -11,4 +11,5 @@ public class ReminderDto {
     private LocalDateTime notifyAt;
     private boolean sent;
     private UUID medicineId;
+    private UUID userId;
 }

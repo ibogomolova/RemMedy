@@ -29,6 +29,9 @@ public class Reminder {
     @ManyToOne
     private Medicine medicine;
 
+    @ManyToOne
+    private User user;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -37,12 +40,13 @@ public class Reminder {
         return sent == reminder.sent
                 && Objects.equals(id, reminder.id)
                 && Objects.equals(notifyAt, reminder.notifyAt)
-                && Objects.equals(medicine, reminder.medicine);
+                && Objects.equals(medicine, reminder.medicine)
+                && Objects.equals(user, reminder.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, notifyAt, sent, medicine);
+        return Objects.hash(id, notifyAt, sent, medicine, user);
     }
 
     @Override
@@ -52,6 +56,7 @@ public class Reminder {
                 ", notifyAt=" + notifyAt +
                 ", sent=" + sent +
                 ", medicine=" + medicine +
+                ", user=" + user +
                 '}';
     }
 }
