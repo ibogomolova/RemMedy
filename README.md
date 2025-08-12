@@ -81,7 +81,7 @@ cd pharma-box
 
 Проверь Swagger UI: http://localhost:8080/swagger-ui/index.html (если включён) или /v3/api-docs для JSON схемы.
 
-5. Переменные окружения / конфигурация
+## 5. Переменные окружения / конфигурация
 Пример application.properties (замени значения на реальные через env vars):
 
 spring.datasource.url=jdbc:postgresql://localhost:5432/${REMMEDY_DB}
@@ -105,15 +105,15 @@ liquibase.change-log=classpath:db/changelog-master.yaml
 
 Совет: храните пароли и секреты в переменных окружения или secret manager (Vault / cloud secrets).
 
-6. Docker / docker-compose (будет :(...)
+## 6. Docker / docker-compose (будет :(...)
 
 
-7. База данных и миграции
+## 7. База данных и миграции
 Проект содержит Liquibase миграции в src/main/resources/db/. При запуске приложение ожидает, что схема совпадает с миграциями (ddl-auto=validate).
 
 Чтобы применить миграции вручную (если нужно), можно использовать Liquibase CLI или позволить Spring Boot выполнить их при старте.
 
-8. Тестирование и локальная проверка email
+## 8. Тестирование и локальная проверка email
 Запуск тестов:
 ```./mvnw test```
 
@@ -122,7 +122,7 @@ GET /test-email — отправляет тестовое письмо на ад
 
 Отладка почты: включи spring.mail.properties.mail.debug=true в properties, чтобы видеть SMTP-диалог в логах.
 
-9. Основные эндпоинты (быстрый список)
+## 9. Основные эндпоинты (быстрый список)
 (Автоматически извлечены из контроллеров — проверить в коде для деталей запросов/тел)
 
 POST /medicines — создание лекарства
@@ -145,7 +145,7 @@ POST /users/login — логин (если реализован)
 
 (Подробные схемы DTO находятся в src/main/java/.../dto.)
 
-10. Рекомендации по безопасности
+## 10. Рекомендации по безопасности
 
 Реализуй/проверь Spring Security + JWT. 
 
@@ -160,14 +160,14 @@ POST /users/login — логин (если реализован)
 При масштабировании: scheduler работает в каждом инстансе — возможны дубль-уведомления. 
 Решения: leader-election (Redis lock, DB lock) либо внешняя очередь / Cron в k8s.
 
-11. Contribution / Development
+## 11. Contribution / Development
 Форкни репозиторий и создай фичу/ветку.
 
 Пиши тесты для новых функций (unit + интеграционные).
 
 Открывай Pull Request с описанием изменений и шагами для тестирования.
 
-12. Troubleshooting (частые проблемы)
+## 12. Troubleshooting (частые проблемы)
 Swagger не загружается (500 /v3/api-docs): проверь логи при запросе /v3/api-docs — часто падает из-за сериализации Entity (LAZY relations) или ошибок в аннотациях. 
 Решение: использовать DTO, @JsonIgnore, или исправить проблемный класс.
 
