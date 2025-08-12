@@ -9,5 +9,10 @@ import org.mapstruct.Mapping;
 public interface ReminderMapper {
 
     @Mapping(source = "medicine.id", target = "medicineId")
+    @Mapping(source = "user.id", target = "userId")
     ReminderDto toDto(Reminder reminder);
+
+    @Mapping(source = "medicineId", target = "medicine.id")
+    @Mapping(source = "userId", target = "user.id")
+    Reminder toEntity(ReminderDto dto);
 }
