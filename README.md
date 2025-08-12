@@ -45,6 +45,7 @@ RemMedy — backend часть (Spring Boot) для приложения-нап�
 - Docker (тоже будет)
 
 Структура пакетов (основные):
+
 com.remmedy.pharma_box
 ├─ controller
 ├─ dto
@@ -63,7 +64,7 @@ com.remmedy.pharma_box
 
 ### Сборка и запуск
 1. Клонируй репозиторий и перейди в папку проекта:
-```bash
+bash
 git clone <https://github.com/ibogomolova/RemMedy.git>
 cd pharma-box
 
@@ -73,16 +74,16 @@ cd pharma-box
 Запусти PostgreSQL локально и создай БД (или используй docker-compose, пример ниже).
 
 Собери проект и запусти:
-```
+
 ./mvnw clean package -DskipTests
 ./mvnw spring-boot:run
-```
+
 
 Проверь Swagger UI: http://localhost:8080/swagger-ui/index.html (если включён) или /v3/api-docs для JSON схемы.
 
 5. Переменные окружения / конфигурация
 Пример application.properties (замени значения на реальные через env vars):
-```
+
 spring.datasource.url=jdbc:postgresql://localhost:5432/${REMMEDY_DB}
 spring.datasource.username=${REMMEDY_USER}
 spring.datasource.password=${REMMEDY_PASSWORD}
