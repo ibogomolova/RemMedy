@@ -1,10 +1,7 @@
 package com.remmedy.pharma_box.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.Objects;
@@ -16,6 +13,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
 public class Medicine {
 
     @Id
@@ -52,18 +50,5 @@ public class Medicine {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, addedAt, expirationDate, barcode, frontImageUrl, user);
-    }
-
-    @Override
-    public String toString() {
-        return "Medicine{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", addedAt=" + addedAt +
-                ", expirationDate=" + expirationDate +
-                ", barcode='" + barcode + '\'' +
-                ", frontImageUrl='" + frontImageUrl + '\'' +
-                ", user=" + user +
-                '}';
     }
 }

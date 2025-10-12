@@ -1,10 +1,7 @@
 package com.remmedy.pharma_box.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -15,6 +12,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
 public class NotificationSetting {
 
     @Id
@@ -45,16 +43,5 @@ public class NotificationSetting {
     @Override
     public int hashCode() {
         return Objects.hash(id, notifyByEmail, notifyByPush, daysBefore, user);
-    }
-
-    @Override
-    public String toString() {
-        return "NotificationSetting{" +
-                "id=" + id +
-                ", notifyByEmail=" + notifyByEmail +
-                ", notifyByPush=" + notifyByPush +
-                ", daysBefore=" + daysBefore +
-                ", user=" + user +
-                '}';
     }
 }

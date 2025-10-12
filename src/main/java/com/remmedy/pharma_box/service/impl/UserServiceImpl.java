@@ -39,15 +39,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getById(UUID id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("User with id " + id + " not found"));
+        User user = checkUserIdOrThrow(id);
         return userMapper.toDto(user);
     }
 
     @Override
     public UserDto update(UUID id, UserDto dto) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("User with id " + id + " not found"));
+        User user = checkUserIdOrThrow(id);
         user.setName(dto.getName());
         user.setEmail(dto.getEmail());
 
@@ -61,5 +59,10 @@ public class UserServiceImpl implements UserService {
             throw new UserNotFoundException("User with id " + id + " not found");
         }
         userRepository.deleteById(id);
+    }
+
+    private User checkUserIdOrThrow(UUID id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("User with id " + id + " not found"));
     }
 }

@@ -5,7 +5,7 @@ import com.remmedy.pharma_box.dto.UserDto;
 import com.remmedy.pharma_box.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,28 +19,28 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public ResponseEntity<UserDto> create(@Valid @RequestBody CreateUserDto dto) {
-        return ResponseEntity.ok(userService.create(dto));
+    public UserDto create(@Valid @RequestBody CreateUserDto dto) {
+        return userService.create(dto);
     }
 
     @GetMapping
-    public ResponseEntity<List<UserDto>> getAll() {
-        return ResponseEntity.ok(userService.getAll());
+    public List<UserDto> getAll() {
+        return userService.getAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserDto> getById(@PathVariable UUID id) {
-        return ResponseEntity.ok(userService.getById(id));
+    public UserDto getById(@PathVariable UUID id) {
+        return userService.getById(id);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserDto> update(@PathVariable UUID id, @Valid @RequestBody UserDto dto) {
-        return ResponseEntity.ok(userService.update(id, dto));
+    public UserDto update(@PathVariable UUID id, @Valid @RequestBody UserDto dto) {
+        return userService.update(id, dto);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable UUID id) {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable UUID id) {
         userService.delete(id);
-        return ResponseEntity.noContent().build();
     }
 }
