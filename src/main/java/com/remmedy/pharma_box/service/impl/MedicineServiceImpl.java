@@ -47,15 +47,13 @@ public class MedicineServiceImpl implements MedicineService {
 
     @Override
     public MedicineDto getById(UUID id) {
-        Medicine medicine = medicineRepository.findById(id)
-                .orElseThrow(() -> new MedicineNotFoundException("Medicine with id " + id + " not found"));
+        Medicine medicine = checkMedicineIdOrThrow(id);
         return medicineMapper.toDto(medicine);
     }
 
     @Override
     public MedicineDto update(UUID id, MedicineDto dto) {
-        Medicine medicine = medicineRepository.findById(id)
-                .orElseThrow(() -> new MedicineNotFoundException("Medicine with id " + id + " not found"));
+        Medicine medicine = checkMedicineIdOrThrow(id);
 
         medicine.setName(dto.getName());
         medicine.setExpirationDate(dto.getExpirationDate());
@@ -72,5 +70,10 @@ public class MedicineServiceImpl implements MedicineService {
             throw new MedicineNotFoundException("Medicine with id " + id + " not found");
         }
         medicineRepository.deleteById(id);
+    }
+
+    private Medicine checkMedicineIdOrThrow(UUID id) {
+        return medicineRepository.findById(id)
+                .orElseThrow(() -> new MedicineNotFoundException("Medicine with id " + id + " not found"));
     }
 }
