@@ -92,19 +92,30 @@ cd pharma-box
 Пример application.properties (замени значения на реальные через env vars):
 
 spring.datasource.url=jdbc:postgresql://localhost:5432/${REMMEDY_DB}
+
 spring.datasource.username=${REMMEDY_USER}
+
 spring.datasource.password=${REMMEDY_PASSWORD}
+
 spring.datasource.driver-class-name=org.postgresql.Driver
+
 spring.jpa.hibernate.ddl-auto=validate
+
 spring.jpa.show-sql=true
+
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
 
 # SMTP
 spring.mail.host=smtp.mail.ru
+
 spring.mail.port=465
+
 spring.mail.username=noreply@remmedy.site
+
 spring.mail.password=${REMMEDY_SMTP_PASS}
+
 spring.mail.properties.mail.smtp.auth=true
+
 spring.mail.properties.mail.smtp.ssl.enable=true
 
 # Liquibase changelog
