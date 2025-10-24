@@ -49,11 +49,17 @@ RemMedy — backend часть (Spring Boot) для приложения-нап�
 
 com.remmedy.pharma_box
 ├─ controller
+
 ├─ dto
+
 ├─ entity
+
 ├─ exception
+
 ├─ mapper
+
 ├─ repository
+
 └─ service / service.impl
 
 ## 4. Быстрый старт (локально)
