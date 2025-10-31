@@ -1,10 +1,10 @@
 package com.remmedy.pharma_box.service.impl;
 
-import com.remmedy.pharma_box.dto.CreateNotificationSettingDto;
-import com.remmedy.pharma_box.dto.NotificationSettingDto;
-import com.remmedy.pharma_box.entity.NotificationSetting;
-import com.remmedy.pharma_box.entity.User;
+import com.remmedy.pharma_box.dto.notification.CreateNotificationSettingDto;
+import com.remmedy.pharma_box.dto.notification.NotificationSettingDto;
 import com.remmedy.pharma_box.exception.UserNotFoundException;
+import com.remmedy.pharma_box.model.NotificationSetting;
+import com.remmedy.pharma_box.model.User;
 import com.remmedy.pharma_box.repository.NotificationSettingRepository;
 import com.remmedy.pharma_box.repository.UserRepository;
 import com.remmedy.pharma_box.service.NotificationSettingService;

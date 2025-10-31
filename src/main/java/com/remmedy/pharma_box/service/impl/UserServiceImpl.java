@@ -1,68 +1,102 @@
 package com.remmedy.pharma_box.service.impl;
 
-import com.remmedy.pharma_box.dto.CreateUserDto;
-import com.remmedy.pharma_box.dto.UserDto;
-import com.remmedy.pharma_box.entity.User;
+import com.remmedy.pharma_box.dto.user.UserDto;
+import com.remmedy.pharma_box.dto.user.UserNew;
+import com.remmedy.pharma_box.dto.user.UserUpdate;
+import com.remmedy.pharma_box.exception.EmailAlreadyExistsException;
 import com.remmedy.pharma_box.exception.UserNotFoundException;
 import com.remmedy.pharma_box.mapper.UserMapper;
-import com.remmedy.pharma_box.repository.MedicineRepository;
+import com.remmedy.pharma_box.model.User;
 import com.remmedy.pharma_box.repository.UserRepository;
 import com.remmedy.pharma_box.service.UserService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final MedicineRepository medicineRepository;
+
     private final UserMapper userMapper;
 
     @Override
-    public UserDto create(CreateUserDto dto) {
-        User user = userMapper.toEntity(dto);
-        user.setPassword(dto.getPassword());
-        User saved = userRepository.save(user);
-        return userMapper.toDto(saved);
+    @Transactional
+    public UserDto userRegistration(UserNew userNew) {
+        validateEmailUniqueness(userNew.email());
+        User user = userMapper.toUser(userNew);
+        User savedUser = userRepository.save(user);
+        UserDto userDto = userMapper.toUserDto(savedUser);
+        log.info("User with ID = {} created.", userDto.id());
+        return userDto;
     }
 
     @Override
-    public List<UserDto> getAll() {
-        return userRepository.findAll().stream()
-                .map(userMapper::toDto)
-                .toList();
+    public List<UserDto> getAllUsers(int page, int size) {
+        Sort sort = Sort.by(Sort.Direction.ASC, "lastName");
+        PageRequest pageRequest = PageRequest.of(page, size, sort);
+        Page<User> userPage = userRepository.findAll(pageRequest);
+        List<User> userList = userPage.getContent();
+        List<UserDto> userDtoList = userMapper.toUserDtoList(userList);
+        log.info("User List on page {} with size {} has been returned.", page, size);
+        return userDtoList;
     }
 
     @Override
-    public UserDto getById(UUID id) {
-        User user = checkUserIdOrThrow(id);
-        return userMapper.toDto(user);
+    public UserDto getUserById(UUID userId) {
+        User user = findUserById(userId);
+        UserDto userDto = userMapper.toUserDto(user);
+        log.info("User with ID {} returned.", userId);
+        return userDto;
     }
 
     @Override
-    public UserDto update(UUID id, UserDto dto) {
-        User user = checkUserIdOrThrow(id);
-        user.setName(dto.getName());
-        user.setEmail(dto.getEmail());
+    public UserDto updateUserById(UUID userId, UserUpdate userUpdate) {
+        User user = findUserByIdForUpdate(userId);
 
-        User updated = userRepository.save(user);
-        return userMapper.toDto(updated);
-    }
-
-    @Override
-    public void delete(UUID id) {
-        if (!userRepository.existsById(id)) {
-            throw new UserNotFoundException("User with id " + id + " not found");
+        if (userUpdate.email() != null && !userUpdate.email().equals(user.getEmail())) {
+            validateEmailUniqueness(userUpdate.email());
         }
-        userRepository.deleteById(id);
+
+        userMapper.updateUser(user, userUpdate);
+        User updatedUser = userRepository.save(user);
+        UserDto userDto = userMapper.toUserDto(updatedUser);
+        log.info("User with ID {} updated.", userId);
+        return userDto;
     }
 
-    private User checkUserIdOrThrow(UUID id) {
-        return userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("User with id " + id + " not found"));
+    @Override
+    public void deleteUserById(UUID userId) {
+        User user = findUserById(userId);
+        userRepository.delete(user);
+        log.info("User with ID {} has been deleted.", userId);
+    }
+
+    private User findUserById(UUID userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException(String.format("The User with ID = %s not found",
+                        userId)));
+    }
+
+    private User findUserByIdForUpdate(UUID userId) {
+        return userRepository.findUserByIdForUpdate(userId)
+                .orElseThrow(() -> new UserNotFoundException(String.format("The User with ID = %s not found", userId)));
+    }
+
+    private void validateEmailUniqueness(String email) {
+        userRepository.findByEmail(email)
+                .ifPresent(user -> {
+                    throw new EmailAlreadyExistsException(String.format("Email = %s already exists",
+                            email));
+                });
     }
 }

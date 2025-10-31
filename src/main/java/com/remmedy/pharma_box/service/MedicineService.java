@@ -1,19 +1,23 @@
 package com.remmedy.pharma_box.service;
 
-import com.remmedy.pharma_box.dto.CreateMedicineDto;
-import com.remmedy.pharma_box.dto.MedicineDto;
+import com.remmedy.pharma_box.dto.medicine.MedicineDto;
+import com.remmedy.pharma_box.dto.medicine.MedicineNew;
+import com.remmedy.pharma_box.dto.medicine.MedicineUpdate;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface MedicineService {
-    MedicineDto create(CreateMedicineDto dto);
 
-    List<MedicineDto> getAllByUser(UUID userId);
+    MedicineDto createMedicine(MedicineNew medicineNew);
 
-    MedicineDto getById(UUID id);
+    List<MedicineDto> getAllMedicines(int page, int size);
 
-    MedicineDto update(UUID id, MedicineDto dto);
+    List<MedicineDto> getMedicinesByUserId(UUID userId, int page, int size);
 
-    void delete(UUID id);
+    MedicineDto getMedicineById(UUID medicineId);
+
+    MedicineDto updateMedicineById(UUID medicineId, MedicineUpdate medicineUpdate);
+
+    void deleteMedicineById(UUID medicineId);
 }

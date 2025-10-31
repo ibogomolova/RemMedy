@@ -17,7 +17,7 @@ public class TestMailController {
     @Autowired
     private JavaMailSender mailSender;
 
-    @GetMapping("/test-email")
+    @GetMapping("/api/test-email")
     public String sendTestEmail(@RequestParam String to) {
         try {
             var msg = new SimpleMailMessage();

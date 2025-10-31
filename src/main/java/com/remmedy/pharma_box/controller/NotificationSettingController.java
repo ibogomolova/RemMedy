@@ -1,7 +1,7 @@
 package com.remmedy.pharma_box.controller;
 
-import com.remmedy.pharma_box.dto.CreateNotificationSettingDto;
-import com.remmedy.pharma_box.dto.NotificationSettingDto;
+import com.remmedy.pharma_box.dto.notification.CreateNotificationSettingDto;
+import com.remmedy.pharma_box.dto.notification.NotificationSettingDto;
 import com.remmedy.pharma_box.service.NotificationSettingService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/notification-settings")
+@RequestMapping("/api/notification-settings")
 @RequiredArgsConstructor
 public class NotificationSettingController {
 

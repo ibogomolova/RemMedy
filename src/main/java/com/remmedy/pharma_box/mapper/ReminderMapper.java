@@ -1,7 +1,7 @@
 package com.remmedy.pharma_box.mapper;
 
 import com.remmedy.pharma_box.dto.ReminderDto;
-import com.remmedy.pharma_box.entity.Reminder;
+import com.remmedy.pharma_box.model.Reminder;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

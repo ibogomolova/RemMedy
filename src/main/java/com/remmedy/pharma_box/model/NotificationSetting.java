@@ -1,9 +1,17 @@
-package com.remmedy.pharma_box.entity;
+package com.remmedy.pharma_box.model;
 
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -16,7 +24,7 @@ import java.util.UUID;
 public class NotificationSetting {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
 
     private boolean notifyByEmail;
@@ -33,15 +41,11 @@ public class NotificationSetting {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         NotificationSetting that = (NotificationSetting) o;
-        return notifyByEmail == that.notifyByEmail
-                && notifyByPush == that.notifyByPush
-                && daysBefore == that.daysBefore
-                && Objects.equals(id, that.id)
-                && Objects.equals(user, that.user);
+        return id != null && id.equals(that.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, notifyByEmail, notifyByPush, daysBefore, user);
+        return getId() != null ? getId().hashCode() : 0;
     }
 }

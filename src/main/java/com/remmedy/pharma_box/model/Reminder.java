@@ -1,10 +1,18 @@
-package com.remmedy.pharma_box.entity;
+package com.remmedy.pharma_box.model;
 
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -17,7 +25,7 @@ import java.util.UUID;
 public class Reminder {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
 
     private LocalDateTime notifyAt;
@@ -35,15 +43,11 @@ public class Reminder {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Reminder reminder = (Reminder) o;
-        return sent == reminder.sent
-                && Objects.equals(id, reminder.id)
-                && Objects.equals(notifyAt, reminder.notifyAt)
-                && Objects.equals(medicine, reminder.medicine)
-                && Objects.equals(user, reminder.user);
+        return id != null && id.equals(reminder.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, notifyAt, sent, medicine, user);
+        return getId() != null ? getId().hashCode() : 0;
     }
 }

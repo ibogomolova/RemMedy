@@ -1,10 +1,18 @@
-package com.remmedy.pharma_box.entity;
+package com.remmedy.pharma_box.model;
 
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDate;
-import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -17,7 +25,7 @@ import java.util.UUID;
 public class Medicine {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
 
     private String name;
@@ -38,17 +46,11 @@ public class Medicine {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Medicine medicine = (Medicine) o;
-        return Objects.equals(id, medicine.id)
-                && Objects.equals(name, medicine.name)
-                && Objects.equals(addedAt, medicine.addedAt)
-                && Objects.equals(expirationDate, medicine.expirationDate)
-                && Objects.equals(barcode, medicine.barcode)
-                && Objects.equals(frontImageUrl, medicine.frontImageUrl)
-                && Objects.equals(user, medicine.user);
+        return id != null && id.equals(medicine.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, addedAt, expirationDate, barcode, frontImageUrl, user);
+        return getId() != null ? getId().hashCode() : 0;
     }
 }
