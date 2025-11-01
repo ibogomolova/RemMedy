@@ -1,13 +1,12 @@
 package com.remmedy.pharma_box.service.impl;
 
-import com.remmedy.pharma_box.entity.Medicine;
-import com.remmedy.pharma_box.entity.NotificationSetting;
-import com.remmedy.pharma_box.entity.Reminder;
-import com.remmedy.pharma_box.entity.User;
+import com.remmedy.pharma_box.model.Medicine;
+import com.remmedy.pharma_box.model.NotificationSetting;
+import com.remmedy.pharma_box.model.Reminder;
+import com.remmedy.pharma_box.model.User;
 import com.remmedy.pharma_box.repository.MedicineRepository;
 import com.remmedy.pharma_box.repository.NotificationSettingRepository;
 import com.remmedy.pharma_box.repository.ReminderRepository;
-import com.remmedy.pharma_box.repository.UserRepository;
 import com.remmedy.pharma_box.service.MailService;
 import com.remmedy.pharma_box.service.ReminderService;
 import lombok.RequiredArgsConstructor;

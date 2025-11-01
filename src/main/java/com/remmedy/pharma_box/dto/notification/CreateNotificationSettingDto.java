@@ -1,4 +1,4 @@
-package com.remmedy.pharma_box.dto;
+package com.remmedy.pharma_box.dto.notification;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;

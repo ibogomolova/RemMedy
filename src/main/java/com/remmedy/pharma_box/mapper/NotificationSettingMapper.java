@@ -1,8 +1,8 @@
 package com.remmedy.pharma_box.mapper;
 
-import com.remmedy.pharma_box.dto.CreateNotificationSettingDto;
-import com.remmedy.pharma_box.dto.NotificationSettingDto;
-import com.remmedy.pharma_box.entity.NotificationSetting;
+import com.remmedy.pharma_box.dto.notification.CreateNotificationSettingDto;
+import com.remmedy.pharma_box.dto.notification.NotificationSettingDto;
+import com.remmedy.pharma_box.model.NotificationSetting;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

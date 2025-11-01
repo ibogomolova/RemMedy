@@ -132,3 +132,19 @@ databaseChangeLog:
             referencedTableName: users
             referencedColumnNames: id
             constraintName: fk_reminder_user
+  - changeSet:
+      id: 6
+      author: bogomolova
+      changes:
+        - dropColumn:
+            tableName: users
+            columnName: name
+        - addColumn:
+            tableName: users
+            columns:
+              - column:
+                  name: first_name
+                  type: VARCHAR(255)
+              - column:
+                  name: last_name
+                  type: VARCHAR(255)

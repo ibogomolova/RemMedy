@@ -1,8 +1,8 @@
 package com.remmedy.pharma_box.service;
 
-import com.remmedy.pharma_box.dto.CreateNotificationSettingDto;
-import com.remmedy.pharma_box.dto.NotificationSettingDto;
-import com.remmedy.pharma_box.entity.NotificationSetting;
+import com.remmedy.pharma_box.dto.notification.CreateNotificationSettingDto;
+import com.remmedy.pharma_box.dto.notification.NotificationSettingDto;
+import com.remmedy.pharma_box.model.NotificationSetting;
 
 public interface NotificationSettingService {
 

@@ -1,6 +1,6 @@
 package com.remmedy.pharma_box;
 
-import com.remmedy.pharma_box.entity.Medicine;
+import com.remmedy.pharma_box.model.Medicine;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
